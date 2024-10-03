@@ -315,8 +315,37 @@ export const BoldBlackText = styled.h2`
   margin-bottom: 16px;
   white-space: pre-wrap;
 
-  max-width: 320px;
+  max-width: 100%;
   width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @media screen and (${props => props.theme.breakpoints.tablet}){
+    max-width: 470px;
+  }
+`;
+
+export const BoldBlackTextPrivacy = styled.h2`
+  font-family: 'Biko';
+  font-size: 14px;
+  line-height: 20px;
+  color: ${({ theme }) => theme.colors.mineShaft}; 
+  text-align: center;
+  font-weight: 700;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  white-space: pre-wrap;
+
+  max-width: 190px;
+  width: 100%;
+  a {
+    text-decoration: none;
+  }
+  strong {
+    text-decoration: underline;
+  }
 
   @media screen and (${props => props.theme.breakpoints.tablet}){
     max-width: 470px;

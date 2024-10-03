@@ -11,7 +11,9 @@ import Logo3x from 'assets/virufyLogo3x.png';
 import Link from 'components/Link';
 
 // Texts
-import { TitlePurple, TitleBlack, HeaderTitle } from 'components/Texts';
+import {
+  TitlePurple, TitleBlack, TitleBlue, HeaderTitle,
+} from 'components/Texts';
 
 // Styles
 import {
@@ -81,7 +83,8 @@ const Header = () => {
   } = useContext(HeaderContext);
   const location = useLocation();
 
-  if (location.pathname === '/welcome/step-2') return null;
+  console.log('subtitle', subtitle);
+  if (location.pathname === '/welcome') return null;
 
   return (
     <>
@@ -92,6 +95,7 @@ const Header = () => {
             <TitleContainer>
               {(type === 'primary' && !subtitle) && <HeaderTitle>{title}</HeaderTitle>}
               {(type === 'primary' && subtitle) && <><HeaderTitle>{title}</HeaderTitle><TitleBlack>{subtitle}</TitleBlack></>}
+              {(type === 'primaryBlue' && subtitle) && <><HeaderTitle>{title}</HeaderTitle><TitleBlue>{subtitle}</TitleBlue></>}
               {type === 'secondary' && <><LogoImg srcSet={`${Logo}, ${Logo2x} 2x, ${Logo3x} 3x`} src={LogoImg} size={logoSize} /><TitlePurple>{subtitle}</TitlePurple></>}
               {type === 'tertiary' && <Link to="http://www.virufy.org" target="_blank"><LogoImg srcSet={`${Logo}, ${Logo2x} 2x, ${Logo3x} 3x`} src={LogoImg} size={location.pathname !== '/welcome' ? 'regular' : 'big'} /></Link>}
             </TitleContainer>

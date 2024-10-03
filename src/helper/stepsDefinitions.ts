@@ -91,7 +91,7 @@ function getBreathSteps(storeKey: string) {
       props: {
         storeKey,
         previousStep: `${baseUrl}/step-record/breath`,
-        nextStep: `${baseUrl}/step-record/speech`,
+        nextStep: `${baseUrl}/questionary/step5a`,
         metadata: {
           currentLogic: recordYourBreathLogic,
           // nextSpeech: !allowSpeechIn.includes(country),
@@ -147,9 +147,9 @@ function getSpeechSteps(storeKey: string) {
 
 function getQuestionarySteps(storeKey: string): Wizard.Step[] {
   const baseMetadata = {
-    total: 6,
-    progressCurrent: 6,
-    progressTotal: 6,
+    total: 4,
+    progressCurrent: 4,
+    progressTotal: 4,
   };
   return [
     {
@@ -171,7 +171,7 @@ function getQuestionarySteps(storeKey: string): Wizard.Step[] {
       props: {
         storeKey,
         previousStep: `${baseUrl}/questionary/step1`,
-        nextStep: `${welcomeUrl}/step-5`,
+        nextStep: `${baseUrl}/questionary/step6`,
         metadata: {
           current: 2,
           ...baseMetadata,
@@ -209,13 +209,13 @@ function getQuestionarySteps(storeKey: string): Wizard.Step[] {
       componentPath: `${baseComponentPath}/${middleComponentPathQuestionary}/Step5a`,
       props: {
         storeKey,
-        previousStep: `${baseUrl}/questionary/step4`,
-        nextStep: `${baseUrl}/questionary/step6`,
+        previousStep: `${baseUrl}/step-listen/breath`,
+        nextStep: `${baseUrl}/thank-you`,
         otherSteps: {
           covidSymptomsStep: `${baseUrl}/questionary/step5b`,
         },
         metadata: {
-          current: 5,
+          current: 4,
           ...baseMetadata,
         },
       },
@@ -226,7 +226,7 @@ function getQuestionarySteps(storeKey: string): Wizard.Step[] {
       props: {
         storeKey,
         previousStep: `${baseUrl}/questionary/step5a`,
-        nextStep: `${baseUrl}/questionary/step6`,
+        nextStep: `${baseUrl}/thank-you`,
         metadata: {
           ...baseMetadata,
         },
@@ -237,10 +237,10 @@ function getQuestionarySteps(storeKey: string): Wizard.Step[] {
       componentPath: `${baseComponentPath}/${middleComponentPathQuestionary}/Step6`,
       props: {
         storeKey,
-        previousStep: `${baseUrl}/questionary/step5a`,
-        nextStep: `${baseUrl}/thank-you`,
+        previousStep: `${baseUrl}/questionary/step2`,
+        nextStep: `${welcomeUrl}/step-5`,
         metadata: {
-          current: 6,
+          current: 3,
           ...baseMetadata,
         },
       },
@@ -254,7 +254,7 @@ export function getWelcomeStepsWithoutDots(storeKey: string): Wizard.Step[] {
   return [
     {
       path: '',
-      componentPath: 'Welcome/Step2',
+      componentPath: 'Welcome/Step1',
       props: {
         storeKey,
         nextStep: `${welcomeUrl}/step-3`,
@@ -288,7 +288,7 @@ export function welcomeStepsDefinitions(storeKey: string): Wizard.Step[] {
       componentPath: 'Welcome/Step5',
       props: {
         storeKey,
-        previousStep: `${welcomeUrl}/step-4`,
+        previousStep: `${baseUrl}/questionary/step6`,
         nextStep: '/submit-steps/step-record/cough',
       },
     },

@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useStateMachine } from 'little-state-machine';
+import usePortal from 'react-useportal';
 
 // Form
 import { useForm, Controller } from 'react-hook-form';
@@ -9,10 +10,8 @@ import { yupResolver } from '@hookform/resolvers';
 import * as Yup from 'yup';
 
 // Icons
+import HeaderSplash from 'assets/images/baseLogoSplash.png';
 import { ReactComponent as ExclamationSVG } from 'assets/icons/exclamationCircle.svg';
-
-// Components
-import CreatedBy from 'components/CreatedBy';
 
 // Modals
 import CountryErrorModal from 'modals/CountryErrorModal';
@@ -32,10 +31,15 @@ import { timeZones } from 'data/timeZones';
 import { scrollToTop } from 'helper/scrollHelper';
 
 // Styles
+import { BlackText, BerryTextBold } from 'components/Texts';
+import WizardButtons from 'components/WizardButtons';
 import {
-  WelcomeContent, WelcomeStyledForm, LogoSubtitle,
-  RegionContainer, ContainerNextButton, NextButton, ArrowRightSVG,
-  BoldBlackText, CustomPurpleText, WelcomeSelect, TextErrorContainer,
+  WelcomeContent, WelcomeStyledForm,
+  RegionContainer,
+  BoldBlackText, WelcomeSelect, TextErrorContainer,
+  HeaderImageContainer,
+  HeaderImage,
+  LogoWhiteBG,
 } from '../style';
 
 declare interface OptionsProps {
@@ -84,7 +88,9 @@ const Step1 = (p: Wizard.StepProps) => {
   const [activeStep, setActiveStep] = React.useState(true);
   const [supportedLang, setSupportedLang] = React.useState<{ value: string; label: string; }[]>([]);
   const [ipLimit, setIpLimit] = React.useState(false);
-
+  const { Portal } = usePortal({
+    bindTo: document && document.getElementById('wizard-buttons') as HTMLDivElement,
+  });
   const {
     setType, setDoGoBack, setLogoSize,
   } = useHeaderContext();
@@ -161,7 +167,7 @@ const Step1 = (p: Wizard.StepProps) => {
       const elem = countryData.find(a => a.value === country);
       if (elem) {
         elem.states.forEach(s => {
-          output.push({ label: s, value: s });
+          output.push({ label: t(`main:regionOpt.${s}`, s), value: s });
         });
       }
     }
@@ -237,34 +243,13 @@ const Step1 = (p: Wizard.StepProps) => {
   return (
     <>
       <WelcomeStyledForm>
-        <LogoSubtitle>
-          {t('main:logoIntro', 'An Independent Nonprofit Research Organization')}
-        </LogoSubtitle>
-        <WelcomeContent mt={4}>
-          <CustomPurpleText mb={8}>
-            {t('main:paragraph2', 'Covid-19 Cough Data Collection Study')}
-          </CustomPurpleText>
-          <BoldBlackText>
-            {t('main:selectYourLanguage', 'Language')}
-          </BoldBlackText>
-
-          {/* Language */}
-          <Controller
-            control={control}
-            name="language"
-            defaultValue={languageData[0].value}
-            render={({ onChange, value: valueController }) => (
-              <WelcomeSelect
-                placeholder={t('main.selectYourLanguage', 'Language')}
-                options={supportedLang}
-                onChange={(e: any) => { onChange(e?.value); }}
-                value={languageData.filter(({ value }) => value === valueController)}
-                className="custom-select"
-                classNamePrefix="custom-select"
-                isDisabled={supportedLang?.length <= 1}
-              />
-            )}
+        <HeaderImageContainer>
+          <HeaderImage
+            src={HeaderSplash}
           />
+          <LogoWhiteBG />
+        </HeaderImageContainer>
+        <WelcomeContent mt={4}>
 
           <BoldBlackText>
             {t('main:selectLocation', 'Location')}
@@ -293,6 +278,28 @@ const Step1 = (p: Wizard.StepProps) => {
                 noOptionsMessage={({ inputValue }) => (
                   !inputValue ? `${t('main:noOptionsError')}` : `${t('main:noValueError')}`
                 )}
+              />
+            )}
+          />
+
+          <BoldBlackText>
+            {t('main:selectYourLanguage', 'Language')}
+          </BoldBlackText>
+
+          {/* Language */}
+          <Controller
+            control={control}
+            name="language"
+            defaultValue={languageData[0].value}
+            render={({ onChange, value: valueController }) => (
+              <WelcomeSelect
+                placeholder={t('main.selectYourLanguage', 'Language')}
+                options={supportedLang}
+                onChange={(e: any) => { onChange(e?.value); }}
+                value={languageData.filter(({ value }) => value === valueController)}
+                className="custom-select"
+                classNamePrefix="custom-select"
+                isDisabled={supportedLang?.length <= 1}
               />
             )}
           />
@@ -326,19 +333,38 @@ const Step1 = (p: Wizard.StepProps) => {
               </>
             ) : <></>)}
           />
+
+          <BlackText>
+            <BerryTextBold>
+              {t('main:servicePurposeTitle', 'Service purpose and positioning')}
+            </BerryTextBold>
+            <Trans i18nKey="main:servicePurposeText">
+              {/* eslint-disable-next-line max-len */}
+              <p>Virufy is a service that uses artificial intelligence (Al) to analyze voice patterns to determine whether they resemble the coughs of patients suffering from COVID-19. This service is not a medical device, so it only provides information and is not intended for medical advice, diagnosis, treatment, prevention, etc. The Service is not a substitute for a doctor or other medical professional, so please do not make any medical decisions or take or stop any action (such as taking any medication) based on the information we provide. Also, do not use it in life-threatening or emergency situations. This service does not take any responsibility for the disease the user originally suffers from or the consequences of actions taken by the user based on the information provided.
+              </p>
+            </Trans>
+          </BlackText>
+
+          <BlackText>
+            <Trans i18nKey="helpVirufy:introParagraphJapanFooter">
+              <strong>
+                Purpose and positioning of the service <br />
+                Terms of Use and Privacy Policy<br />
+                Please use this service after agreeing to the following
+              </strong>
+            </Trans>
+          </BlackText>
+
           {
             activeStep && (
-              <>
-                <ContainerNextButton>
-                  <NextButton
-                    onClick={handleSubmit(onSubmit)}
-                    isDisable={!isValid}
-                  >
-                    <ArrowRightSVG />
-                  </NextButton>
-                </ContainerNextButton>
-                <CreatedBy inline />
-              </>
+              <Portal>
+                <WizardButtons
+                  invert
+                  leftLabel={t('helpVirufy:nextButton')}
+                  leftHandler={handleSubmit(onSubmit)}
+                  leftDisabled={!isValid}
+                />
+              </Portal>
             )
           }
         </WelcomeContent>

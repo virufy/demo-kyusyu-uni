@@ -18,6 +18,7 @@ import useHeaderContext from 'hooks/useHeaderContext';
 
 // Utils
 import { scrollToTop } from 'helper/scrollHelper';
+import { doSubmit } from 'helper/submitHelper';
 
 // Components
 import WizardButtons from 'components/WizardButtons';
@@ -27,8 +28,10 @@ import { ReactComponent as ExclamationSVG } from 'assets/icons/exclamationCircle
 
 // Styles
 import { TextErrorContainer } from 'containers/Welcome/style';
+import Recaptcha from 'components/Recaptcha';
 import {
   QuestionText, MainContainer, QuestionInput,
+  TempBeforeSubmitError,
 } from '../style';
 
 const schema = Yup.object({
@@ -46,7 +49,9 @@ const Step7b = ({
   const { Portal } = usePortal({
     bindTo: document && document.getElementById('wizard-buttons') as HTMLDivElement,
   });
-  const { setDoGoBack, setTitle, setType } = useHeaderContext();
+  const {
+    setDoGoBack, setTitle, setType, setSubtitle,
+  } = useHeaderContext();
   const history = useHistory();
   const { t } = useTranslation();
   const { state, action } = useStateMachine(updateAction(storeKey));
@@ -62,7 +67,19 @@ const Step7b = ({
     defaultValues: state?.[storeKey],
     resolver: yupResolver(schema),
   });
-  const { errors, isValid } = formState;
+  const { errors } = formState;
+
+  /* Delete after Contact info step is re-integrated */
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
+  const [captchaValue, setCaptchaValue] = React.useState<string | null>(null);
+  const [recaptchaAvailable, setRecaptchaAvailable] = React.useState(true);
+  const { isSubmitting } = formState;
+
+  useEffect(() => {
+    if (!captchaValue) {
+      setSubmitError(null);
+    }
+  }, [captchaValue]);
 
   // Handlers
   const handleDoBack = React.useCallback(() => {
@@ -76,11 +93,21 @@ const Step7b = ({
 
   const onSubmit = async (values: Step7bType) => {
     if (values) {
-      action(values);
-      if (nextStep) {
-        setActiveStep(false);
-        history.push(nextStep);
-      }
+      await doSubmit({
+        setSubmitError: s => setSubmitError(!s ? null : t(s)),
+        state: {
+          ...state,
+          'submit-steps': {
+            ...state['submit-steps'],
+            ...values,
+          },
+        },
+        captchaValue,
+        action,
+        nextStep,
+        setActiveStep,
+        history,
+      });
     }
   };
 
@@ -89,7 +116,8 @@ const Step7b = ({
     setTitle(`${t('questionary:symptomsDateTitle')}`);
     setType('primary');
     setDoGoBack(() => handleDoBack);
-  }, [handleDoBack, setDoGoBack, setTitle, setType, t]);
+    setSubtitle('');
+  }, [handleDoBack, setDoGoBack, setTitle, setSubtitle, setType, t]);
 
   return (
     <MainContainer>
@@ -124,10 +152,17 @@ const Step7b = ({
       />
       {activeStep && (
         <Portal>
+          { /* ReCaptcha  */}
+          <Recaptcha onChange={setCaptchaValue} setRecaptchaAvailable={setRecaptchaAvailable} />
+          {submitError && (
+            <TempBeforeSubmitError>
+              {submitError}
+            </TempBeforeSubmitError>
+          )}
           <WizardButtons
-            leftLabel={t('questionary:nextButton')}
+            leftLabel={isSubmitting ? t('questionary:submitting') : t('beforeSubmit:submitButton')}
+            leftDisabled={isSubmitting || (recaptchaAvailable && !captchaValue)}
             leftHandler={handleSubmit(onSubmit)}
-            leftDisabled={!isValid}
             invert
           />
         </Portal>

@@ -16,19 +16,21 @@ export const HeaderContainer = styled.div<{ type?: string, isMobile?: boolean, h
   margin-bottom: ${({ type }) => {
     switch (type) {
       case 'primary':
+      case 'primaryBlue':
         return '40px';
       default:
         return '0px';
     }
   }};
   
-  ${({ type, hasSubtitle }) => (type === 'primary' && hasSubtitle && `
+  ${({ type, hasSubtitle }) => ((type === 'primary' || type === 'primaryBlue') && hasSubtitle && `
     border-radius: 0 0 70px 70px;
   `)}
 
   ${({ type, hasSubtitle }) => (type === 'primary' && !hasSubtitle && `
     border-radius: 0 0 50px 50px;
   `)}
+
 
   ${({ type }) => (type === 'tertiary' && `
     background-color: #FFFFFF;

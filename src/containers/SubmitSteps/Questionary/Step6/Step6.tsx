@@ -14,7 +14,6 @@ import * as Yup from 'yup';
 import { updateAction } from 'utils/wizard';
 
 // Components
-import Recaptcha from 'components/Recaptcha';
 import ProgressIndicator from 'components/ProgressIndicator';
 import OptionList from 'components/OptionList';
 import WizardButtons from 'components/WizardButtons';
@@ -27,13 +26,11 @@ import useHeaderContext from 'hooks/useHeaderContext';
 
 // Utils
 import { scrollToTop } from 'helper/scrollHelper';
-import { doSubmit } from 'helper/submitHelper';
 
 // Styles
 import { TextErrorContainer } from 'containers/Welcome/style';
 import {
-  QuestionText, TempBeforeSubmitError, MainContainer,
-  QuestionAllApply,
+  QuestionText, MainContainer, QuestionAllApply,
 } from '../style';
 
 const schema = Yup.object({
@@ -52,7 +49,9 @@ const Step6 = ({
   const { Portal } = usePortal({
     bindTo: document && document.getElementById('wizard-buttons') as HTMLDivElement,
   });
-  const { setDoGoBack, setTitle, setType } = useHeaderContext();
+  const {
+    setDoGoBack, setTitle, setType, setSubtitle,
+  } = useHeaderContext();
   const history = useHistory();
   const { t } = useTranslation();
   const { state, action } = useStateMachine(updateAction(storeKey));
@@ -64,42 +63,11 @@ const Step6 = ({
   const {
     control, handleSubmit, formState,
   } = useForm({
+    mode: 'onChange',
     defaultValues: state?.[storeKey],
     resolver: yupResolver(schema),
   });
-  const { errors } = formState;
-
-  /* Delete after Contact info step is re-integrated */
-  const [submitError, setSubmitError] = React.useState<string | null>(null);
-  const [captchaValue, setCaptchaValue] = React.useState<string | null>(null);
-  const [recaptchaAvailable, setRecaptchaAvailable] = React.useState(true);
-  const { isSubmitting } = formState;
-
-  useEffect(() => {
-    if (!captchaValue) {
-      setSubmitError(null);
-    }
-  }, [captchaValue]);
-
-  const onSubmit = async (values: Step6Type) => {
-    if (values) {
-      await doSubmit({
-        setSubmitError: s => setSubmitError(!s ? null : t(s)),
-        state: {
-          ...state,
-          'submit-steps': {
-            ...state['submit-steps'],
-            ...values,
-          },
-        },
-        captchaValue,
-        action,
-        nextStep,
-        setActiveStep,
-        history,
-      });
-    }
-  };
+  const { errors, isValid } = formState;
 
   /*  */
   const handleDoBack = React.useCallback(() => {
@@ -114,20 +82,21 @@ const Step6 = ({
   useEffect(() => {
     scrollToTop();
     setTitle(`${t('questionary:respiration.title')}`);
-    setType('primary');
+    setType('primaryBlue');
     setDoGoBack(() => handleDoBack);
-  }, [handleDoBack, setDoGoBack, setTitle, setType, metadata, t]);
+    setSubtitle(t('questionary:respiration:subtitle'));
+  }, [handleDoBack, setDoGoBack, setSubtitle, setTitle, setType, metadata, t]);
 
   // Handlers
-  // const onSubmit = async (values: Step6Type) => {
-  //   if (values) {
-  //     action(values);
-  //     if (nextStep) {
-  //       setActiveStep(false);
-  //       history.push(nextStep);
-  //     }
-  //   }
-  // };
+  const onSubmit = async (values: Step6Type) => {
+    if (values) {
+      action(values);
+      if (nextStep) {
+        setActiveStep(false);
+        history.push(nextStep);
+      }
+    }
+  };
 
   return (
     <MainContainer>
@@ -142,6 +111,7 @@ const Step6 = ({
         </Trans>
         <QuestionAllApply>{t('questionary:allThatApply')}</QuestionAllApply>
       </QuestionText>
+
       <Controller
         control={control}
         name="currentMedicalCondition"
@@ -157,10 +127,6 @@ const Step6 = ({
                 label: t('questionary:medical.options.none'),
               },
               {
-                value: 'allergies',
-                label: t('questionary:medical.options.allergies'),
-              },
-              {
                 value: 'asthma',
                 label: t('questionary:medical.options.asthma'),
               },
@@ -169,28 +135,8 @@ const Step6 = ({
                 label: t('questionary:medical.options.bronchitis'),
               },
               {
-                value: 'congestiveHeartFailure',
-                label: t('questionary:medical.options.congestiveHeart'),
-              },
-              {
                 value: 'copdEmphysema',
                 label: t('questionary:medical.options.emphysema'),
-              },
-              {
-                value: 'extremeObesity',
-                label: t('questionary:medical.options.obesity'),
-              },
-              {
-                value: 'heartDisease',
-                label: t('questionary:medical.options.heartDisease'),
-              },
-              {
-                value: 'hivAidsOrImpairedImmuneSystem',
-                label: t('questionary:medical.options.hiv'),
-              },
-              {
-                value: 'lungCancer',
-                label: t('questionary:medical.options.lungCancer'),
               },
               {
                 value: 'otherChronic',
@@ -201,16 +147,44 @@ const Step6 = ({
                 label: t('questionary:medical.options.pneumonia'),
               },
               {
-                value: 'pulmonaryFibrosis',
-                label: t('questionary:medical.options.pulmonary'),
+                value: 'tuberculosis',
+                label: t('questionary:medical.options.tuberculosis'),
+              },
+              {
+                value: 'cysticFibrosis',
+                label: t('questionary:medical.options.cysticFibrosis'),
+              },
+              {
+                value: 'hivAidsOrImpairedImmuneSystem',
+                label: t('questionary:medical.options.hiv'),
+              },
+              {
+                value: 'congestiveHeart',
+                label: t('questionary:medical.options.congestiveHeart'),
+              },
+              {
+                value: 'coughCausedByOther',
+                label: t('questionary:medical.options.cough'),
+              },
+              {
+                value: 'extremeObesity',
+                label: t('questionary:medical.options.obesity'),
               },
               {
                 value: 'sinusitis',
                 label: t('questionary:medical.options.sinusitis'),
               },
               {
-                value: 'tuberculosis',
-                label: t('questionary:medical.options.tuberculosis'),
+                value: 'pulmonary',
+                label: t('questionary:medical.options.pulmonary'),
+              },
+              {
+                value: 'heartValveDisease',
+                label: t('questionary:medical.options.heartValveDisease'),
+              },
+              {
+                value: 'pregnancy',
+                label: t('questionary:medical.options.pregnancy'),
               },
               {
                 value: 'other',
@@ -228,24 +202,17 @@ const Step6 = ({
         render={({ message }) => (
           <TextErrorContainer>
             <ExclamationSVG />
-            {t(`main:${message}`, 'Please select at leas one option')}
+            {t(`main:${message}`, 'Please select at least one option')}
           </TextErrorContainer>
         )}
       />
       {activeStep && (
         <Portal>
-          { /* ReCaptcha  */}
-          <Recaptcha onChange={setCaptchaValue} setRecaptchaAvailable={setRecaptchaAvailable} />
-          {submitError && (
-            <TempBeforeSubmitError>
-              {submitError}
-            </TempBeforeSubmitError>
-          )}
           <WizardButtons
-            invert
-            leftLabel={isSubmitting ? t('questionary:submitting') : t('beforeSubmit:submitButton')}
-            leftDisabled={isSubmitting || (recaptchaAvailable && !captchaValue)}
+            leftLabel={t('questionary:nextButton')}
+            leftDisabled={!isValid}
             leftHandler={handleSubmit(onSubmit)}
+            invert
           />
         </Portal>
       )}

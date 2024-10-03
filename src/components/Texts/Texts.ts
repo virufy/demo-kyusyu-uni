@@ -42,6 +42,16 @@ export const TitleBlack = styled.div`
   text-align: center;
 `;
 
+export const TitleBlue = styled.div`
+  font-family: 'Open Sans';
+  font-weight: 700;
+  line-height: 34.24px;
+  color: ${colors.purple};
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
 export const BlackText = styled.h2<{ $textLeft?: boolean }>`
   font-family: 'Source Sans Pro';
   font-size: 0.875rem;
@@ -79,5 +89,14 @@ export const PurpleTextBold = styled.h2`
   line-height: 20px;
   color: ${colors.purple};
   font-weight: 600;
+  text-align: center;
+`;
+
+export const BerryTextBold = styled.h2`
+  font-family: 'Source Sans Pro';
+  font-size: 0.875rem;
+  line-height: 20px;
+  color: ${colors.berry};
+  font-weight: bold;
   text-align: center;
 `;

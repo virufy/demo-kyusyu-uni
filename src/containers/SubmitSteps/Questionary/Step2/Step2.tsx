@@ -49,7 +49,9 @@ const Step2 = ({
   const { Portal } = usePortal({
     bindTo: document && document.getElementById('wizard-buttons') as HTMLDivElement,
   });
-  const { setDoGoBack, setTitle, setType } = useHeaderContext();
+  const {
+    setDoGoBack, setTitle, setType, setSubtitle,
+  } = useHeaderContext();
   const history = useHistory();
   const { t } = useTranslation();
   const { state, action } = useStateMachine(updateAction(storeKey));
@@ -85,7 +87,8 @@ const Step2 = ({
     setTitle(`${t('questionary:biologicalSex.title')}`);
     setType('primary');
     setDoGoBack(() => handleDoBack);
-  }, [handleDoBack, setDoGoBack, setTitle, setType, metadata, t]);
+    setSubtitle('');
+  }, [handleDoBack, setDoGoBack, setTitle, setSubtitle, setType, metadata, t]);
 
   // Handlers
   const onSubmit = async (values: Step2Type) => {

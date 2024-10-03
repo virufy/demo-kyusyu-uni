@@ -51,7 +51,9 @@ const Step5a = ({
   const { Portal } = usePortal({
     bindTo: document && document.getElementById('wizard-buttons') as HTMLDivElement,
   });
-  const { setDoGoBack, setTitle, setType } = useHeaderContext();
+  const {
+    setDoGoBack, setTitle, setType, setSubtitle,
+  } = useHeaderContext();
   const history = useHistory();
   const { t } = useTranslation();
   const { state, action } = useStateMachine(updateAction(storeKey));
@@ -83,7 +85,8 @@ const Step5a = ({
     setTitle(`${t('questionary:symptoms.title')}`);
     setType('primary');
     setDoGoBack(() => handleDoBack);
-  }, [handleDoBack, setDoGoBack, setTitle, setType, metadata, t]);
+    setSubtitle('');
+  }, [handleDoBack, setDoGoBack, setTitle, setSubtitle, setType, metadata, t]);
 
   // Handlers
   const onSubmit = async (values: Step5aType) => {
@@ -163,12 +166,8 @@ const Step5a = ({
                 label: t('questionary:symptoms.options.headaches'),
               },
               {
-                value: 'lossTasteAndOrSmell',
-                label: t('questionary:symptoms.options.lossTasteOrSmell'),
-              },
-              {
-                value: 'newOrWorseCough',
-                label: t('questionary:symptoms.options.worseCough'),
+                value: 'tasteOrSmellDisorder',
+                label: t('questionary:symptoms.options.tasteOrSmellDisorder'),
               },
               {
                 value: 'runnyNose',
@@ -187,12 +186,28 @@ const Step5a = ({
                 label: t('questionary:symptoms.options.chestTightness'),
               },
               {
+                value: 'palpitations',
+                label: t('questionary:symptoms.options.palpitations'),
+              },
+              {
+                value: 'chestDiscomfort',
+                label: t('questionary:symptoms.options.chestDiscomfort'),
+              },
+              {
                 value: 'vomitingAndDiarrhea',
                 label: t('questionary:symptoms.options.vomitingAndDiarrhea'),
               },
               {
                 value: 'weakness',
                 label: t('questionary:symptoms.options.weakness'),
+              },
+              {
+                value: 'fatigue',
+                label: t('questionary:symptoms.options.fatigue'),
+              },
+              {
+                value: 'rash',
+                label: t('questionary:symptoms.options.rash'),
               },
               {
                 value: 'other',
@@ -210,7 +225,7 @@ const Step5a = ({
         render={({ message }) => (
           <TextErrorContainer>
             <ExclamationSVG />
-            {t(`main:${message}`, 'Please select at leas one option')}
+            {t(`main:${message}`, 'Please select at least one option')}
           </TextErrorContainer>
         )}
       />

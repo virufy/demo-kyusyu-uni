@@ -1,6 +1,5 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { colors } from 'theme';
 
 // Styles
@@ -32,7 +31,6 @@ const ProgressIndicator = ({
   progressBar = false,
 }: ProgressIndicatorProps) => {
   // Hooks
-  const { t } = useTranslation();
 
   const progress = (currentStep / totalSteps) * 100;
   const normalizedRadius = radius - stroke / 2;
@@ -45,7 +43,7 @@ const ProgressIndicator = ({
         progressBar
           ? (
             <BarIndicatorContainer>
-              {t('questionary:progressBar', { currentStep, totalSteps })}
+              {/* {t('questionary:progressBar', { currentStep, totalSteps })} */}
               <BarIndicator
                 currentStep={currentStep}
                 totalSteps={totalSteps}

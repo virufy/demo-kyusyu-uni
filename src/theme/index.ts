@@ -36,6 +36,7 @@ export const colors = {
   purple_50: 'rgba(53, 120, 222, 0.5)', // #3578DE 50%
   purple_10: 'rgba(53, 120, 222, 0.1)', // #3578DE 10%
   purple_5: 'rgba(53, 120, 222, 0.05)', // #3578DE 5%
+  berry: '#DB1C6C',
 };
 
 export const layout = {
