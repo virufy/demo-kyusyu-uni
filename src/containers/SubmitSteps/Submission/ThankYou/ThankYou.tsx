@@ -65,15 +65,14 @@ const ThankYou = (p: Wizard.StepProps) => {
     <ThankYouLayout>
       <ThankYouTitle>{t('thankyou:title')}</ThankYouTitle>
       <BeforeSubmitText $centered><Trans i18nKey="thankyou:paragraph1" /></BeforeSubmitText>
-      {submissionId && (
-        <SubmissionIdBox>
-          <Trans i18nKey="thankyou:paragraph2">
-            Your unique submission ID:
-            <br />
-            <strong>{{ submissionId }}</strong>
-          </Trans>
-        </SubmissionIdBox>
-      )}
+      <SubmissionIdBox>
+        <Trans i18nKey="thankyou:paragraph2">
+          Your unique submission ID:
+          <br />
+          <strong>{{ submissionId: Math.floor(100000 + Math.random() * 900000) }}</strong>
+        </Trans>
+      </SubmissionIdBox>
+
       <BeforeSubmitText>
         <Trans i18nKey="thankyou:paragraph3">
           Make sure to safeguard this submission ID, as you will need it to request Virufy to delete your anonymized

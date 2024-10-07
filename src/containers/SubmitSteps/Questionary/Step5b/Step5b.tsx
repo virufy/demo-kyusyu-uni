@@ -38,9 +38,9 @@ const schema = Yup.object({
   symptomsStartedDate: Yup.string().required('symptomsStartedDateRequired'),
 }).defined();
 
-type Step7bType = Yup.InferType<typeof schema>;
+type Step5bType = Yup.InferType<typeof schema>;
 
-const Step7b = ({
+const Step5b = ({
   previousStep,
   nextStep,
   storeKey,
@@ -73,7 +73,7 @@ const Step7b = ({
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const [captchaValue, setCaptchaValue] = React.useState<string | null>(null);
   const [recaptchaAvailable, setRecaptchaAvailable] = React.useState(true);
-  const { isSubmitting } = formState;
+  const { isSubmitting, isValid } = formState;
 
   useEffect(() => {
     if (!captchaValue) {
@@ -91,23 +91,13 @@ const Step7b = ({
     }
   }, [history, previousStep]);
 
-  const onSubmit = async (values: Step7bType) => {
+  const onSubmit = async (values: Step5bType) => {
     if (values) {
-      await doSubmit({
-        setSubmitError: s => setSubmitError(!s ? null : t(s)),
-        state: {
-          ...state,
-          'submit-steps': {
-            ...state['submit-steps'],
-            ...values,
-          },
-        },
-        captchaValue,
-        action,
-        nextStep,
-        setActiveStep,
-        history,
-      });
+      action(values);
+      if (nextStep) {
+        setActiveStep(false);
+        history.push(nextStep);
+      }
     }
   };
 
@@ -152,16 +142,9 @@ const Step7b = ({
       />
       {activeStep && (
         <Portal>
-          { /* ReCaptcha  */}
-          <Recaptcha onChange={setCaptchaValue} setRecaptchaAvailable={setRecaptchaAvailable} />
-          {submitError && (
-            <TempBeforeSubmitError>
-              {submitError}
-            </TempBeforeSubmitError>
-          )}
           <WizardButtons
             leftLabel={isSubmitting ? t('questionary:submitting') : t('beforeSubmit:submitButton')}
-            leftDisabled={isSubmitting || (recaptchaAvailable && !captchaValue)}
+            leftDisabled={!isValid}
             leftHandler={handleSubmit(onSubmit)}
             invert
           />
@@ -171,4 +154,4 @@ const Step7b = ({
   );
 };
 
-export default React.memo(Step7b);
+export default React.memo(Step5b);

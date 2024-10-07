@@ -21,14 +21,14 @@ const StayInTouch = () => {
   const { t, i18n } = useTranslation();
 
   const cardList = React.useMemo(() => {
-    const cards = t('stayInTouch:cards', { returnObjects: true }) as Card[];
+    const cards = t('stayInTouch:cards2', { returnObjects: true }) as Card[];
     return cards;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
 
   return (
     <Container>
-      <Title>{t('stayInTouch:title', 'Stay in touch!')}</Title>
+      <Title>{t('stayInTouch:point', 'Stay in touch!')}</Title>
       {cardList.map(card => (
         <Card key={card.title}>
           <CardTitle>{card.title}</CardTitle>

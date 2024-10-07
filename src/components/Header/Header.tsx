@@ -83,7 +83,6 @@ const Header = () => {
   } = useContext(HeaderContext);
   const location = useLocation();
 
-  console.log('subtitle', subtitle);
   if (location.pathname === '/welcome') return null;
 
   return (
