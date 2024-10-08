@@ -1,6 +1,6 @@
 # Virufy PWA
 
-## Translations
+## Translations (This app is only available in Japanese)
 
 Translations files are located in `src/locales` folder.
 For each language there is a file with the `json` extension. The name matches the *ISO 639-1* [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for the language being translated.
