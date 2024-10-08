@@ -192,15 +192,15 @@ const Step1 = (p: Wizard.StepProps) => {
       setValue('language', parsedVirufyWizard.welcome.language);
       setValue('region', parsedVirufyWizard.welcome.region);
       if (localStorageCountry) {
-        setSupportedLang(JSON.parse(localStorageCountry)?.supported);
+        setSupportedLang([languageData[0]]);      
       }
     } else if (localStorageCountry) {
-      const parsedLocalStorageCountry = JSON.parse(localStorageCountry);
+        const parsedLocalStorageCountry = JSON.parse(localStorageCountry);
       setValue('country', parsedLocalStorageCountry.country);
       setValue('language', parsedLocalStorageCountry.lang[0].value);
-      setSupportedLang(parsedLocalStorageCountry.supported);
+      setSupportedLang([languageData[0]]); 
     } else {
-      getCountry()
+        getCountry()
         .then(countryName => {
           const cInfo = getCountryInfo(countryName);
           const countryDataLS = {
@@ -212,7 +212,7 @@ const Step1 = (p: Wizard.StepProps) => {
           setValue('country', countryName);
           if (cInfo) {
             setValue('language', cInfo.defaultLang[0].value);
-            setSupportedLang(cInfo.supportedLang);
+            setSupportedLang([languageData[0]]); 
           }
           setIpLimit(false);
         })
@@ -296,7 +296,7 @@ const Step1 = (p: Wizard.StepProps) => {
                 placeholder={t('main.selectYourLanguage', 'Language')}
                 options={supportedLang}
                 onChange={(e: any) => { onChange(e?.value); }}
-                value={languageData.filter(({ value }) => value === valueController)}
+                value={supportedLang}
                 className="custom-select"
                 classNamePrefix="custom-select"
                 isDisabled={supportedLang?.length <= 1}

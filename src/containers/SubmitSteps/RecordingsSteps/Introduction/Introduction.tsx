@@ -196,17 +196,6 @@ const Introduction = ({
         isShortAudioCollection={isShortAudioCollection}
       />
 
-      <InstructionContainer>
-        <WelcomeBullets>
-          <BulletIndicator>4</BulletIndicator>
-        </WelcomeBullets>
-        <BlackText>
-          <Trans i18nKey="recordingsRecord:textNext">
-            Click continue to proceed.
-          </Trans>
-        </BlackText>
-      </InstructionContainer>
-
     </MainContainer>
   );
 };

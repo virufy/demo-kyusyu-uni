@@ -86,8 +86,6 @@ const ThankYou = (p: Wizard.StepProps) => {
 
       <StayInTouch />
 
-      <CreatedBy inline={false} mt="32px" />
-
     </ThankYouLayout>
   );
 };

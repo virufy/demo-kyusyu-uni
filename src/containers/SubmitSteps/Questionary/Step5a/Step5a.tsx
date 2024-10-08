@@ -206,6 +206,10 @@ const Step5a = ({
                 label: t('questionary:symptoms.options.fatigue'),
               },
               {
+                value: 'appetiteLoss',
+                label: t('questionary:symptoms.options.appetiteLoss'),
+              },
+              {
                 value: 'rash',
                 label: t('questionary:symptoms.options.rash'),
               },
