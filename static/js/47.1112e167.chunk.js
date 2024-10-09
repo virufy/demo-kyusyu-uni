@@ -1,0 +1,2 @@
+(this["webpackJsonpdemo-kyusyu-uni"]=this["webpackJsonpdemo-kyusyu-uni"]||[]).push([[47],{385:function(e,t,n){"use strict";n.r(t);var u=n(6),a=n.n(u),c=n(463),r=n(307);test("renders learn react link",(function(){var e=(0,Object(c.a)(a.a.createElement(r.default,null)).getByText)(/learn react/i);expect(e).toBeInTheDocument()}))}}]);
+//# sourceMappingURL=47.1112e167.chunk.js.map
