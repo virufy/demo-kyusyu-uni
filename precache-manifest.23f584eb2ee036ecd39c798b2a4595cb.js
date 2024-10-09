@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b7ce601ab94b5177e45b7473b2a795bd",
+    "revision": "342efbe30177c0b28a788f50d2c35264",
     "url": "/demo-kyusyu-uni/index.html"
   },
   {
@@ -256,8 +256,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/demo-kyusyu-uni/static/js/58.e07bc756.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1d2601dfa6ce7eeb09ff",
-    "url": "/demo-kyusyu-uni/static/js/59.e5b5084d.chunk.js"
+    "revision": "db7c739f9f14ecbc0a8e",
+    "url": "/demo-kyusyu-uni/static/js/59.0a11dd68.chunk.js"
   },
   {
     "revision": "33928725e3c32589e328",
@@ -280,8 +280,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/demo-kyusyu-uni/static/js/main.532ad868.chunk.js"
   },
   {
-    "revision": "80fc4ac2dfaa6675cc17",
-    "url": "/demo-kyusyu-uni/static/js/runtime-main.5d44e862.js"
+    "revision": "f263a795b8248ae30c3e",
+    "url": "/demo-kyusyu-uni/static/js/runtime-main.f15b99b0.js"
   },
   {
     "revision": "74682ec33acb1a883ae7d81e961610ce",
