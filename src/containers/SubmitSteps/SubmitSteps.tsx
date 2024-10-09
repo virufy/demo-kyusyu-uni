@@ -28,7 +28,7 @@ createStore({
     },
   },
 }, {
-  name: 'pcrnow-wizard',
+  name: 'demo-kyusyu-uni-wizard',
 });
 
 const SubmitSteps = () => {

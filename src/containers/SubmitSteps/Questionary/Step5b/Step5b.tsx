@@ -18,7 +18,6 @@ import useHeaderContext from 'hooks/useHeaderContext';
 
 // Utils
 import { scrollToTop } from 'helper/scrollHelper';
-import { doSubmit } from 'helper/submitHelper';
 
 // Components
 import WizardButtons from 'components/WizardButtons';
@@ -28,11 +27,7 @@ import { ReactComponent as ExclamationSVG } from 'assets/icons/exclamationCircle
 
 // Styles
 import { TextErrorContainer } from 'containers/Welcome/style';
-import Recaptcha from 'components/Recaptcha';
-import {
-  QuestionText, MainContainer, QuestionInput,
-  TempBeforeSubmitError,
-} from '../style';
+import {QuestionText, MainContainer, QuestionInput,} from '../style';
 
 const schema = Yup.object({
   symptomsStartedDate: Yup.string().required('symptomsStartedDateRequired'),
@@ -69,17 +64,7 @@ const Step5b = ({
   });
   const { errors } = formState;
 
-  /* Delete after Contact info step is re-integrated */
-  const [submitError, setSubmitError] = React.useState<string | null>(null);
-  const [captchaValue, setCaptchaValue] = React.useState<string | null>(null);
-  const [recaptchaAvailable, setRecaptchaAvailable] = React.useState(true);
   const { isSubmitting, isValid } = formState;
-
-  useEffect(() => {
-    if (!captchaValue) {
-      setSubmitError(null);
-    }
-  }, [captchaValue]);
 
   // Handlers
   const handleDoBack = React.useCallback(() => {

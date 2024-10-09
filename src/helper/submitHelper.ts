@@ -108,9 +108,9 @@ export async function doSubmit({
       body.append('captchaValue', captchaValue);
     }
 
-    const response = await axiosClient.post('savePcrnowInfo', body, {
+    const response = await axiosClient.post('saveDemoKyusyuUniInfo', body, {
       headers: {
-        'Content-Type': 'multipart/form-data; boundary=savePcrnowInfo',
+        'Content-Type': 'multipart/form-data; boundary=saveDemoKyusyuUniInfo',
       },
     });
 

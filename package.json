@@ -1,5 +1,5 @@
 {
-  "name": "pcrnow",
+  "name": "demo-kyusyu-uni",
   "version": "0.0.5",
   "private": true,
   "dependencies": {
@@ -11,6 +11,7 @@
     "axios": "^0.20.0",
     "date-fns": "^2.16.1",
     "dompurify": "^2.1.1",
+    "gh-pages": "^6.1.1",
     "i18next": "^19.7.0",
     "i18next-browser-languagedetector": "^6.0.1",
     "little-state-machine": "^3.1.1",

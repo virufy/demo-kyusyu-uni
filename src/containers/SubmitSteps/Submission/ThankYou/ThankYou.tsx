@@ -1,11 +1,10 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { useStateMachine } from 'little-state-machine';
 
 // Components
 import StayInTouch from 'components/StayInTouch';
-import CreatedBy from 'components/CreatedBy';
 
 // Utils
 import { resetStore } from 'utils/wizard';
@@ -36,9 +35,6 @@ const ThankYou = (p: Wizard.StepProps) => {
   const { action } = useStateMachine(resetStore());
 
   const history = useHistory();
-  const location = useLocation<ThankYouLocation>();
-
-  const submissionId = location.state?.submissionId;
 
   React.useEffect(() => {
     action({});

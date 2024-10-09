@@ -185,7 +185,7 @@ const Step1 = (p: Wizard.StepProps) => {
 
   useEffect(() => {
     const localStorageCountry = localStorage.getItem('countryResult');
-    const virufyWizard = localStorage.getItem('pcrnow-wizard');
+    const virufyWizard = localStorage.getItem('demo-kyusyu-uni-wizard');
     if (virufyWizard) {
       const parsedVirufyWizard = JSON.parse(virufyWizard);
       setValue('country', parsedVirufyWizard.welcome.country);

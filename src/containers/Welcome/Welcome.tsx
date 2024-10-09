@@ -18,7 +18,7 @@ const StoreKey = 'welcome';
 createStore({
   [StoreKey]: {},
 }, {
-  name: 'pcrnow-wizard',
+  name: 'demo-kyusyu-uni-wizard',
 });
 
 const stepsWithoutDots = getWelcomeStepsWithoutDots(StoreKey);
