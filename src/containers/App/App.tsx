@@ -2,6 +2,7 @@ import React from 'react';
 import loadable from '@loadable/component';
 import {
   Switch, Route, Redirect, useLocation,
+  BrowserRouter,
 } from 'react-router-dom';
 
 // Components
@@ -37,21 +38,23 @@ const App = () => {
       <HeaderContextProvider>
         <Header />
         <FullWidth style={{ flex: 1 }}>
-          <Switch>
-            <Route path="/welcome">
-              <AsyncLoad key="Welcome" container="Welcome" />
-            </Route>
-            <Route path="/submit-steps">
-              <AsyncLoad key="SubmitSteps" container="SubmitSteps" />
-            </Route>
-            <Redirect exact from="/" to={{ pathname: '/welcome', search }} />
-            <Route>
-              <div>404 Page</div>
-            </Route>
-          </Switch>
+          <BrowserRouter basename="/demo-kyusyu-uni"> 
+            <Switch>
+              <Route path="/welcome">
+                <AsyncLoad key="Welcome" container="Welcome" />
+              </Route>
+              <Route path="/submit-steps">
+                <AsyncLoad key="SubmitSteps" container="SubmitSteps" />
+              </Route>
+              <Redirect exact from="/" to={{ pathname: '/welcome', search }} />
+              <Route>
+                <div>404 Page</div>
+              </Route>
+            </Switch>
+          </BrowserRouter>
         </FullWidth>
         <FooterInstallAsApp />
-        {(!pathname.includes('/submit-steps/thank-you')) && (!pathname.includes('/welcome/step-3')) && <FooterReportProblems /> }
+        {(!pathname.includes('/demo-kyusyu-uni/submit-steps/thank-you')) && (!pathname.includes('/demo-kyusyu-uni/welcome/step-3')) && <FooterReportProblems /> }
       </HeaderContextProvider>
     </AppContainer>
   );

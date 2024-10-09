@@ -2,6 +2,7 @@
   "name": "demo-kyusyu-uni",
   "version": "0.0.5",
   "private": true,
+  "homepage": "http://virufy.github.io/demo-kyusyu-uni",
   "dependencies": {
     "@hookform/error-message": "0.0.4",
     "@hookform/resolvers": "^0.1.1",
@@ -37,6 +38,8 @@
   "scripts": {
     "preinstall": "npx only-allow npm",
     "start": "npm run generate:consent-map && react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

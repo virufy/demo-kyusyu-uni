@@ -83,20 +83,20 @@ const Header = () => {
   } = useContext(HeaderContext);
   const location = useLocation();
 
-  if (location.pathname === '/welcome') return null;
+    if (location.pathname === '/demo-kyusyu-uni/welcome') return null; 
 
   return (
     <>
       {
         type !== 'null' && (
           <HeaderContainer type={type} isMobile={isMobile} hasSubtitle={!!subtitle}>
-            {(doGoBack && location.pathname !== '/welcome') && <ArrowLefContainer onClick={doGoBack}><ArrowLeft /></ArrowLefContainer>}
+            {(doGoBack && location.pathname !== '/demo-kyusyu-uni/welcome') && <ArrowLefContainer onClick={doGoBack}><ArrowLeft /></ArrowLefContainer>}
             <TitleContainer>
               {(type === 'primary' && !subtitle) && <HeaderTitle>{title}</HeaderTitle>}
               {(type === 'primary' && subtitle) && <><HeaderTitle>{title}</HeaderTitle><TitleBlack>{subtitle}</TitleBlack></>}
               {(type === 'primaryBlue' && subtitle) && <><HeaderTitle>{title}</HeaderTitle><TitleBlue>{subtitle}</TitleBlue></>}
               {type === 'secondary' && <><LogoImg srcSet={`${Logo}, ${Logo2x} 2x, ${Logo3x} 3x`} src={LogoImg} size={logoSize} /><TitlePurple>{subtitle}</TitlePurple></>}
-              {type === 'tertiary' && <Link to="http://www.virufy.org" target="_blank"><LogoImg srcSet={`${Logo}, ${Logo2x} 2x, ${Logo3x} 3x`} src={LogoImg} size={location.pathname !== '/welcome' ? 'regular' : 'big'} /></Link>}
+              {type === 'tertiary' && <Link to="http://www.virufy.org" target="_blank"><LogoImg srcSet={`${Logo}, ${Logo2x} 2x, ${Logo3x} 3x`} src={LogoImg} size={location.pathname !== '/demo-kyusyu-uni/welcome' ? 'regular' : 'big'} /></Link>}
             </TitleContainer>
           </HeaderContainer>
         )
