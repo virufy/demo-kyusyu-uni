@@ -45,6 +45,7 @@ const App = () => {
               <AsyncLoad key="SubmitSteps" container="SubmitSteps" />
             </Route>
             <Redirect exact from="/" to={{ pathname: '/welcome', search }} />
+            <Redirect path="/demo-kyusyu-uni" to= {{ pathname: '/welcome', search }} />
             <Route>
               <div>404 Page</div>
             </Route>
