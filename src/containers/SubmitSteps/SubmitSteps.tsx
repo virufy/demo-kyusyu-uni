@@ -50,11 +50,11 @@ const SubmitSteps = () => {
       if (!inputState.welcome?.patientId && inputState[StoreKey]) {
         const { recordYourCough, recordYourSpeech, recordYourBreath } = inputState[StoreKey];
         const toTest = [];
-
+        
         if (recordYourCough) {
           const { recordingFile, uploadedFile } = recordYourCough;
           if (recordingFile) {
-          //   toTest.push({ file: recordingFile, route: '/step-record/cough' });
+            toTest.push({ file: recordingFile, route: '/step-record/cough' });
           }
           if (uploadedFile) {
             toTest.push({ file: uploadedFile, route: '/step-manual-upload/cough' });
@@ -63,7 +63,7 @@ const SubmitSteps = () => {
         if (recordYourBreath) {
           const { recordingFile, uploadedFile } = recordYourBreath;
           if (recordingFile) {
-          //   toTest.push({ file: recordingFile, route: '/step-record/breath' });
+            toTest.push({ file: recordingFile, route: '/step-record/breath' });
           }
           if (uploadedFile) {
             toTest.push({ file: uploadedFile, route: '/step-manual-upload/breath' });
@@ -73,7 +73,7 @@ const SubmitSteps = () => {
         if (recordYourSpeech) {
           const { recordingFile, uploadedFile } = recordYourCough;
           if (recordingFile) {
-          //   toTest.push({ file: recordingFile, route: '/step-record/speech' });
+            toTest.push({ file: recordingFile, route: '/step-record/speech' });
           }
           if (uploadedFile) {
             toTest.push({ file: uploadedFile, route: '/step-manual-upload/speech' });
@@ -90,7 +90,7 @@ const SubmitSteps = () => {
 
     const problemRoute = checkFileConsistencyProblem(state);
     if (problemRoute) {
-      history.push(`/${StoreKey}${problemRoute}`);
+      history.push(`/demo-kyusyu-uni/${StoreKey}${problemRoute}`);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

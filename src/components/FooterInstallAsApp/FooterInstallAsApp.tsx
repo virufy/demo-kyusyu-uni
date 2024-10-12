@@ -31,7 +31,7 @@ const FooterInstallAsApp = () => {
       }
     }
   }, [handlePrompt, setIsInstalled]);
-  if (location.pathname !== '/welcome' && location.pathname !== '/welcome/step-3') return null;
+  if (location.pathname !== '/demo-kyusyu-uni/welcome/step-3') return null;
 
   return (
     <>

@@ -1,5 +1,5 @@
-const baseUrl = '/submit-steps';
-const welcomeUrl = '/welcome';
+const baseUrl = '/demo-kyusyu-uni/submit-steps';
+const welcomeUrl = '/demo-kyusyu-uni/welcome';
 
 const baseComponentPath = 'SubmitSteps';
 const middleComponentPathRecording = 'RecordingsSteps';
@@ -16,7 +16,7 @@ function getCoughSteps(storeKey: string): Wizard.Step[] {
       componentPath: `${baseComponentPath}/${middleComponentPathRecording}/Introduction`,
       props: {
         storeKey,
-        previousStep: '/welcome/step-5',
+        previousStep: '/demo-kyusyu-uni/welcome/step-5',
         nextStep: `${baseUrl}/step-listen/cough`,
         otherSteps: {
           manualUploadStep: `${baseUrl}/step-manual-upload/cough`,
@@ -289,7 +289,8 @@ export function welcomeStepsDefinitions(storeKey: string): Wizard.Step[] {
       props: {
         storeKey,
         previousStep: `${baseUrl}/questionary/step6`,
-        nextStep: '/submit-steps/step-record/cough',
+        nextStep: '/demo-kyusyu-uni/submit-steps/step-record/cough',
+        // nextStep: '/submit-steps/step-record/cough',
       },
     },
   ];
