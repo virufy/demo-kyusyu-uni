@@ -1,7 +1,7 @@
 {
   "name": "demo-kyusyu-uni",
   "version": "0.0.5",
-  "homepage": "http://virufy.github.io",
+  "homepage": "http://virufy.github.io/demo-kyusyu-uni",
   "private": true,
   "dependencies": {
     "@hookform/error-message": "0.0.4",
